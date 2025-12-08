@@ -1,0 +1,743 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Morning Jello - Metabolic Breakthrough</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Georgia', 'Times New Roman', serif;
+            background: #f5f5f5;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+        }
+
+        /* HEADER */
+        .header {
+            background: white;
+            padding: 20px;
+            text-align: center;
+            border-bottom: 2px solid #e0e0e0;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            color: #1a472a;
+            margin-bottom: 10px;
+            font-family: 'Arial', sans-serif;
+        }
+
+        .date {
+            font-size: 12px;
+            color: #999;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 20px;
+        }
+
+        /* HEADLINE */
+        .headline-section {
+            padding: 40px 30px;
+            text-align: center;
+            background: #fafafa;
+        }
+
+        .main-headline {
+            font-size: 32px;
+            font-weight: bold;
+            color: #000;
+            margin-bottom: 20px;
+            line-height: 1.4;
+            font-family: 'Georgia', serif;
+        }
+
+        .sub-headline {
+            font-size: 18px;
+            color: #1a472a;
+            margin-bottom: 15px;
+            font-weight: 600;
+            line-height: 1.5;
+        }
+
+        .byline {
+            font-size: 12px;
+            color: #999;
+            font-style: italic;
+        }
+
+        /* IMAGEM PRINCIPAL */
+        .main-image {
+            width: 100%;
+            height: auto;
+            display: block;
+            background: linear-gradient(135deg, #1a472a 0%, #2d6a47 100%);
+            padding: 40px;
+            text-align: center;
+            color: white;
+            font-size: 14px;
+        }
+
+        .image-placeholder {
+            width: 100%;
+            max-width: 500px;
+            height: 400px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto;
+            font-size: 16px;
+            border: 2px dashed rgba(255, 255, 255, 0.3);
+        }
+
+        /* CONTEÚDO PRINCIPAL */
+        .content {
+            padding: 40px 30px;
+            font-size: 16px;
+            line-height: 1.8;
+            color: #333;
+        }
+
+        .content p {
+            margin-bottom: 20px;
+        }
+
+        .content strong {
+            color: #1a472a;
+            font-weight: 600;
+        }
+
+        .section-title {
+            font-size: 22px;
+            font-weight: bold;
+            color: #1a472a;
+            margin: 30px 0 20px 0;
+            border-bottom: 2px solid #1a472a;
+            padding-bottom: 10px;
+        }
+
+        .highlight-box {
+            background: #f0f8f4;
+            border-left: 4px solid #1a472a;
+            padding: 20px;
+            margin: 25px 0;
+            border-radius: 5px;
+        }
+
+        .highlight-box p {
+            margin: 0;
+            color: #1a472a;
+            font-weight: 500;
+        }
+
+        /* QUIZ SECTION */
+        .quiz-container {
+            display: none;
+            padding: 40px 30px;
+            background: #fafafa;
+        }
+
+        .quiz-container.active {
+            display: block;
+        }
+
+        .quiz-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .quiz-header h3 {
+            font-size: 20px;
+            color: #1a472a;
+            margin-bottom: 10px;
+        }
+
+        .question-counter {
+            font-size: 12px;
+            color: #999;
+            text-transform: uppercase;
+        }
+
+        .question-text {
+            font-size: 18px;
+            font-weight: 600;
+            color: #333;
+            margin: 25px 0;
+            line-height: 1.5;
+        }
+
+        .options {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin: 25px 0;
+        }
+
+        .option {
+            padding: 15px 20px;
+            border: 2px solid #ddd;
+            border-radius: 5px;
+            cursor: pointer;
+            background: white;
+            font-size: 15px;
+            color: #333;
+            transition: all 0.3s ease;
+            font-family: 'Arial', sans-serif;
+            text-align: left;
+        }
+
+        .option:hover {
+            border-color: #1a472a;
+            background: #f0f8f4;
+            transform: translateX(5px);
+        }
+
+        .option.selected {
+            border-color: #1a472a;
+            background: #1a472a;
+            color: white;
+            font-weight: 600;
+        }
+
+        /* LOADING SCREEN */
+        .loading-container {
+            display: none;
+            padding: 60px 30px;
+            text-align: center;
+            background: #fafafa;
+        }
+
+        .loading-container.active {
+            display: block;
+        }
+
+        .loading-text {
+            font-size: 18px;
+            color: #1a472a;
+            margin-bottom: 30px;
+            font-weight: 600;
+        }
+
+        .loading-bar {
+            width: 100%;
+            max-width: 400px;
+            height: 8px;
+            background: #e0e0e0;
+            border-radius: 10px;
+            margin: 0 auto 30px;
+            overflow: hidden;
+        }
+
+        .loading-progress {
+            height: 100%;
+            background: linear-gradient(90deg, #1a472a 0%, #2d6a47 100%);
+            width: 0%;
+            animation: loading 3s ease-in-out forwards;
+        }
+
+        @keyframes loading {
+            0% { width: 0%; }
+            50% { width: 70%; }
+            100% { width: 100%; }
+        }
+
+        .loading-steps {
+            font-size: 14px;
+            color: #666;
+            margin-top: 20px;
+        }
+
+        .loading-step {
+            margin: 10px 0;
+            opacity: 0;
+            animation: fadeInStep 0.8s ease-in-out forwards;
+        }
+
+        .loading-step:nth-child(1) { animation-delay: 0.5s; }
+        .loading-step:nth-child(2) { animation-delay: 1.5s; }
+        .loading-step:nth-child(3) { animation-delay: 2.5s; }
+
+        @keyframes fadeInStep {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        /* RESULT SCREEN */
+        .result-container {
+            display: none;
+            padding: 40px 30px;
+            text-align: center;
+            background: linear-gradient(135deg, #f0fff4 0%, #e8f5f0 100%);
+        }
+
+        .result-container.active {
+            display: block;
+        }
+
+        .result-icon {
+            font-size: 60px;
+            margin-bottom: 20px;
+        }
+
+        .result-title {
+            font-size: 24px;
+            font-weight: bold;
+            color: #1a472a;
+            margin-bottom: 20px;
+        }
+
+        .result-text {
+            font-size: 16px;
+            color: #333;
+            margin-bottom: 30px;
+            line-height: 1.8;
+        }
+
+        .result-box {
+            background: white;
+            border: 2px solid #1a472a;
+            border-radius: 5px;
+            padding: 25px;
+            margin: 20px 0;
+            text-align: left;
+        }
+
+        .result-box h4 {
+            color: #1a472a;
+            margin-bottom: 10px;
+            font-size: 16px;
+        }
+
+        .result-box p {
+            color: #666;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        /* BUTTONS */
+        .button-group {
+            margin-top: 30px;
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+        }
+
+        .btn {
+            padding: 14px 30px;
+            border: none;
+            border-radius: 5px;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-family: 'Arial', sans-serif;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #1a472a 0%, #2d6a47 100%);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(26, 71, 42, 0.3);
+        }
+
+        .btn-primary:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .btn-secondary {
+            background: white;
+            color: #1a472a;
+            border: 2px solid #1a472a;
+        }
+
+        .btn-secondary:hover {
+            background: #f0f8f4;
+        }
+
+                .btn-watch-vsl {
+            background: linear-gradient(135deg, #ff4444 0%, #ff6b6b 100%);
+            color: white;
+            font-size: 18px;
+            font-weight: 700;
+            padding: 18px 50px;
+            width: 100%;
+            max-width: 500px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            animation: pulse 2s infinite;
+            box-shadow: 0 0 20px rgba(255, 68, 68, 0.5);
+        }
+
+        .btn-watch-vsl:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 30px rgba(255, 68, 68, 0.8);
+            animation: none;
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                box-shadow: 0 0 20px rgba(255, 68, 68, 0.5);
+                transform: scale(1);
+            }
+            50% {
+                box-shadow: 0 0 40px rgba(255, 68, 68, 0.8);
+                transform: scale(1.02);
+            }
+        }
+
+        .privacy-text {
+            font-size: 12px;
+            color: #999;
+            margin-top: 15px;
+            font-style: italic;
+        }
+
+        .result-container {
+            background: linear-gradient(135deg, #f0fff4 0%, #e8f5f0 100%);
+        }
+
+        /* FOOTER */
+        .footer {
+            background: #1a472a;
+            color: white;
+            text-align: center;
+            padding: 20px;
+            font-size: 12px;
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 768px) {
+            .main-headline {
+                font-size: 24px;
+            }
+
+            .sub-headline {
+                font-size: 16px;
+            }
+
+            .content {
+                padding: 25px 20px;
+                font-size: 15px;
+            }
+
+            .button-group {
+                flex-direction: column;
+            }
+
+            .btn {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- HEADER -->
+        <div class="header">
+            <div class="logo">🏥 Daily Health News</div>
+            <div class="date" id="todayDate"></div>
+        </div>
+
+        <!-- HEADLINE SECTION -->
+        <div class="headline-section">
+            <h1 class="main-headline">Forget Ozempic: New "Morning Jello" Routine Goes Viral After Top Doctor Reveals How It "Mimics" Weight Loss Injections Naturally</h1>
+            <p class="sub-headline">Women over 35 are using this 30-second kitchen trick to unclog their metabolism and burn deep fat (without side effects).</p>
+            <p class="byline">By Health Staff | Updated: Today</p>
+        </div>
+
+        <!-- MAIN IMAGE -->
+        <div class="main-image" style="padding: 0; background: none;">
+            <img src="main_advertorial_image.png" alt="Before and After Weight Loss Transformation" style="width: 100%; height: auto; display: block;">
+        </div>
+
+        <!-- MAIN CONTENT -->
+        <div class="content" id="mainContent">
+            <p>If you feel like your body has simply "stopped" burning fat after age 35, you are not alone. And it is not your fault.</p>
+
+            <p>A controversial new discovery by <strong>Dr. Mark Hyman</strong>, former director of the Cleveland Clinic Center for Functional Medicine, is turning the weight loss industry upside down.</p>
+
+            <p>He revealed that the real reason for stubborn weight gain isn't calories or carbs. It's a <strong>"hormonal shut-down"</strong> that happens to most women as they age.</p>
+
+            <p>Specifically, the body stops producing <strong>GLP-1 and GIP</strong>—the two exact hormones that expensive injections like Ozempic and Mounjaro try to mimic synthetically.</p>
+
+            <div class="section-title">The "Activator Gelatin" Secret</div>
+
+            <p>In a recent leak that Big Pharma tried to suppress, Dr. Hyman and his team discovered that a specific combination of amino acids found in gelatin—called <strong>Glycine and Alanine</strong>—has the unique ability to "reactivate" these hormones naturally.</p>
+
+            <p>But there is a catch: <strong>Store-bought gelatin won't work.</strong> It's full of sugar and dyes.</p>
+
+            <p>The secret lies in a specific <strong>"clinical-grade ratio"</strong> of these ingredients. When prepared correctly, this mixture acts like a key, turning your body's fat-burning engine back on 24 hours a day.</p>
+
+            <div class="highlight-box">
+                <p>"When you activate GLP-1 and GIP naturally using this gelatin method, your body thinks it's full and starts using stored belly fat for energy, even while you sleep," explains the expert.</p>
+            </div>
+
+            <p>Hollywood insiders whisper that stars like <strong>Rebel Wilson</strong> used a variation of this natural method to achieve their shocking transformations without risky surgeries.</p>
+
+            <div class="section-title">Will It Work For Your Body Type?</div>
+
+            <p>While the results are stunning—with reports of women dropping up to <strong>20 lbs in weeks</strong>—Dr. Hyman warns that this method works best for a specific <strong>"Metabolic Profile."</strong></p>
+
+            <p>To help you find out if your hormones are blocked and if this <strong>"Gelatin Trick"</strong> will work for you, a <strong>30-Second Compatibility Quiz</strong> is now available below.</p>
+
+            <p><strong>Answer the 3 questions below to see your diagnosis and watch the private video tutorial.</strong></p>
+        </div>
+
+        <!-- QUIZ SECTION -->
+        <div class="quiz-container" id="quizContainer">
+            <div class="quiz-header">
+                <h3>STEP 1: Check Your Metabolic Profile</h3>
+                <div class="question-counter" id="questionCounter"></div>
+            </div>
+            <div class="question-text" id="questionText"></div>
+            <div class="options" id="optionsContainer"></div>
+            <div class="button-group">
+                <button class="btn btn-secondary" id="btnBack" style="display: none;">← Back</button>
+            </div>
+        </div>
+
+        <!-- LOADING SCREEN -->
+        <div class="loading-container" id="loadingContainer">
+            <div class="loading-text">Analyzing Your Results...</div>
+            <div class="loading-bar">
+                <div class="loading-progress"></div>
+            </div>
+            <div class="loading-steps">
+                <div class="loading-step">✓ Analyzing hormonal profile...</div>
+                <div class="loading-step">✓ Checking GLP-1 blockage...</div>
+                <div class="loading-step">✓ Match Found!</div>
+            </div>
+        </div>
+
+        <!-- RESULT SCREEN -->
+        <div class="result-container" id="resultContainer">
+            <div class="result-icon">⚠️</div>
+            <h2 class="result-title" style="color: #ff4444; font-size: 28px; margin-bottom: 25px;">DIAGNOSIS: GLP-1 BLOCKAGE DETECTED</h2>
+            <p class="result-text" style="font-size: 16px; color: #333; margin-bottom: 30px; line-height: 1.8;">
+                Based on your answers <strong>(Age + Symptoms)</strong>, your metabolic profile shows signs of <strong>Hormonal Resistance</strong>. Dieting alone will not work for you.
+                <br><br>
+                <strong style="color: #1a472a; font-size: 18px;">You have been APPROVED to watch the private protocol video.</strong>
+            </p>
+            
+            <a href="https://www.sheliveslight.site/jellytrick" target="_blank" class="btn btn-watch-vsl" id="btnWatchVSL">🔓 UNLOCK VIDEO TUTORIAL</a>
+            
+            <div class="privacy-text">🔒 Privacy secured. Video available for the next 10 minutes.</div>
+            
+            <div class="button-group" style="margin-top: 30px;">
+                <button class="btn btn-secondary" id="btnRetakeQuiz">← Retake Quiz</button>
+            </div>
+        </div>
+
+        <!-- FOOTER -->
+        <div class="footer">
+            <p>© 2025 Daily Health News. This content is for educational purposes only and should not replace professional medical advice.</p>
+        </div>
+    </div>
+
+    <script>
+        // QUIZ DATA
+        const quizQuestions = [
+            {
+                question: "What is your current age range?",
+                subtext: "(This method is optimized for hormonal drops that occur with age)",
+                options: [
+                    "Under 30",
+                    "30 to 45 (Recommended)",
+                    "45 to 60 (Highly Recommended)",
+                    "60+ (Highly Recommended)"
+                ]
+            },
+            {
+                question: "How would you describe your past diet attempts?",
+                options: [
+                    "I lose weight easily, but gain it back.",
+                    "I diet and exercise, but the scale won't move (Metabolic Plateau).",
+                    "I have never tried a strict diet."
+                ]
+            },
+            {
+                question: "Do you experience uncontrollable sugar cravings or hunger at night?",
+                subtext: "(This indicates low GLP-1 levels)",
+                options: [
+                    "Yes, I feel anxious and hungry often.",
+                    "No, my appetite is normal."
+                ]
+            }
+        ];
+
+        // STATE
+        let currentQuestion = 0;
+        let answers = [];
+        let selectedAnswer = null;
+
+        // DOM ELEMENTS
+        const mainContent = document.getElementById('mainContent');
+        const quizContainer = document.getElementById('quizContainer');
+        const loadingContainer = document.getElementById('loadingContainer');
+        const resultContainer = document.getElementById('resultContainer');
+        const questionText = document.getElementById('questionText');
+        const questionCounter = document.getElementById('questionCounter');
+        const optionsContainer = document.getElementById('optionsContainer');
+        const btnBack = document.getElementById('btnBack');
+        const btnWatchVSL = document.getElementById('btnWatchVSL');
+        const btnRetakeQuiz = document.getElementById('btnRetakeQuiz');
+
+        // SET TODAY'S DATE
+        function setTodayDate() {
+            const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+            const today = new Date().toLocaleDateString('en-US', options);
+            document.getElementById('todayDate').textContent = today;
+        }
+
+        // SHOW QUIZ
+        function showQuiz() {
+            mainContent.style.display = 'none';
+            quizContainer.classList.add('active');
+            loadingContainer.classList.remove('active');
+            resultContainer.classList.remove('active');
+            
+            displayQuestion();
+        }
+
+        // DISPLAY QUESTION
+        function displayQuestion() {
+            const question = quizQuestions[currentQuestion];
+            questionCounter.textContent = `Question ${currentQuestion + 1} of ${quizQuestions.length}`;
+            
+            let questionHTML = question.question;
+            if (question.subtext) {
+                questionHTML += `<br><small style="font-size: 14px; color: #999; font-weight: normal;">${question.subtext}</small>`;
+            }
+            questionText.innerHTML = questionHTML;
+            
+            optionsContainer.innerHTML = '';
+            question.options.forEach((option, index) => {
+                const optionDiv = document.createElement('div');
+                optionDiv.className = 'option';
+                optionDiv.textContent = option;
+                optionDiv.addEventListener('click', () => selectOption(index));
+                optionsContainer.appendChild(optionDiv);
+            });
+
+            btnBack.style.display = currentQuestion > 0 ? 'block' : 'none';
+            selectedAnswer = null;
+        }
+
+        // SELECT OPTION
+        function selectOption(index) {
+            const options = document.querySelectorAll('.option');
+            options.forEach(opt => opt.classList.remove('selected'));
+            options[index].classList.add('selected');
+            selectedAnswer = index;
+
+            // Auto-advance after 500ms
+            setTimeout(() => {
+                nextQuestion();
+            }, 500);
+        }
+
+        // NEXT QUESTION
+        function nextQuestion() {
+            if (selectedAnswer !== null) {
+                answers.push(selectedAnswer);
+                currentQuestion++;
+
+                if (currentQuestion < quizQuestions.length) {
+                    displayQuestion();
+                } else {
+                    showLoading();
+                }
+            }
+        }
+
+        // SHOW LOADING
+        function showLoading() {
+            quizContainer.classList.remove('active');
+            loadingContainer.classList.add('active');
+
+            setTimeout(() => {
+                showResult();
+            }, 3500);
+        }
+
+        // SHOW RESULT
+        function showResult() {
+            loadingContainer.classList.remove('active');
+            resultContainer.classList.add('active');
+        }
+
+        // BACK BUTTON
+        btnBack.addEventListener('click', () => {
+            if (currentQuestion > 0) {
+                currentQuestion--;
+                answers.pop();
+                displayQuestion();
+            }
+        });
+
+        // WATCH VSL BUTTON
+        btnWatchVSL.addEventListener('click', () => {
+            alert('Redirecting to video tutorial...\n\n(Replace this with your actual VSL/video link)');
+            // window.location.href = 'YOUR_VSL_LINK_HERE';
+        });
+
+        // RETAKE QUIZ BUTTON
+        btnRetakeQuiz.addEventListener('click', () => {
+            currentQuestion = 0;
+            answers = [];
+            selectedAnswer = null;
+            mainContent.style.display = 'block';
+            resultContainer.classList.remove('active');
+            quizContainer.classList.remove('active');
+            loadingContainer.classList.remove('active');
+        });
+
+        // SCROLL TO QUIZ
+        document.addEventListener('DOMContentLoaded', () => {
+            setTodayDate();
+
+            // Add scroll to quiz when user clicks to start
+            const observer = new MutationObserver(() => {
+                if (quizContainer.classList.contains('active')) {
+                    quizContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+
+            observer.observe(quizContainer, { attributes: true, attributeFilter: ['class'] });
+        });
+
+        // START QUIZ BUTTON (scroll to quiz section and show it)
+        const startQuizButton = document.createElement('button');
+        startQuizButton.className = 'btn btn-primary';
+        startQuizButton.textContent = 'Start The Quiz Now';
+        startQuizButton.style.marginTop = '20px';
+        startQuizButton.addEventListener('click', showQuiz);
+
+        // Insert button after main content
+        const contentSection = document.querySelector('.content');
+        contentSection.parentNode.insertBefore(startQuizButton, contentSection.nextSibling);
+    </script>
+</body>
+</html>
